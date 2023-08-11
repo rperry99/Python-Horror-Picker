@@ -1,6 +1,22 @@
 import random
 import numpy as np
 
+def giveOutput(entry, movie):
+    print(entry.title(), "is what you are looking for? Cool, give", movie, "a try.")
+
+# Function to pick a random row, and then a random movie.
+def pickMovie(movies, entry):
+    np.random.shuffle(movies)
+
+    for movie in movies:
+        movieStr = movie[1]
+        if movieStr.lower() == entry.lower():
+            giveOutput(entry, movie[0])
+            return
+        
+    print("Looks like we don't have a movie in the", entry, "subgenre. Sorry!")
+    return
+
 # Create the random list of horror movies along with their sub-genre
 horrorList = np.array([
         ["Friday the 13th", "Slasher"],
@@ -14,12 +30,7 @@ horrorList = np.array([
         ["[REC]", "Found Footage"]])
 
 # Ask for user input
-userEntry = input("Are you ready to be scared?\n")
+userEntry = input("What subgenre of horror movie do you want to watch?\n")
 
-# Choose a random row in the numpy array
-randomRow = np.random.randint(len(horrorList), size = 1)
-
-# Select the movie from this row.
-randomMovie = random.choice(horrorList[randomRow[0]])
-
-print("Looks like", randomMovie, "is going to give you nightmares tonight.")
+# Run the program
+pickMovie(horrorList, userEntry)
